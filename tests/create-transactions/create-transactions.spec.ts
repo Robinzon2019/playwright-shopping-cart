@@ -21,7 +21,7 @@ test('create transaction', async ({page}) => {
         await page.locator("//button[contains(text(), 'Guardar')]").click()
     }
 
-    await page.pause()
+    // await page.pause()
 })
 
 

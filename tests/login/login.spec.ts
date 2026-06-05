@@ -34,5 +34,5 @@ test('login', async ({page}) => {
         expect(await addTransactionPage.getCurrentDescription(1)).toEqual(transactionDescription)
     });
 
-    await page.pause()
+    // await page.pause()
 })
