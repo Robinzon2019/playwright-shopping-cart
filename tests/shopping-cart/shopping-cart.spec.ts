@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
-import {chromium, expect, test} from 'playwright/test';
+import {expect, test} from 'playwright/test';
 import { NavigateTo } from '../../pageobjects/navigate/NavigateTo';
 
 test('Buying new products', async ({page}) => {
     const navigateTo = new NavigateTo(page);
-    await navigateTo.shoppingCartPage();
+    await navigateTo.productListPage();
 
     for (let i = 0; i <= 5; i++) {
         await page.locator(`//h5[contains(text(), 'Producto 1')]/ancestor::div[contains(@class, 'card-body')]//button`).click();

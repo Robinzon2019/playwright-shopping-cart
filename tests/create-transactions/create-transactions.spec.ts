@@ -1,10 +1,10 @@
 import {test} from 'playwright/test';
 import {faker} from '@faker-js/faker';
-
-const loginPageUrl = 'http://127.0.0.1:5500/login.html';
+import { NavigateTo } from '../../pageobjects/navigate/NavigateTo';
 
 test('create transaction', async ({page}) => {
-    await page.goto(loginPageUrl);
+    const navigateTo = new NavigateTo(page)
+    await navigateTo.loginPage()
 
     await page.locator('input#username').fill('user');
     await page.locator("input[id='password']").fill('pass');
@@ -26,7 +26,8 @@ test('create transaction', async ({page}) => {
 
 
 test('test', async ({ page }) => {
-  await page.goto(loginPageUrl);
+  const navigateTo = new NavigateTo(page)
+  await navigateTo.loginPage()
   await page.getByRole('textbox', { name: 'Nombre de usuario:' }).fill('user');
   await page.getByRole('textbox', { name: 'Contraseña:' }).fill('pass');
   await page.getByRole('button', { name: 'Iniciar sesión' }).click();

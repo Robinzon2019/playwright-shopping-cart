@@ -4,6 +4,7 @@ export class NavigateTo {
     private readonly page: Page;
     private readonly loginPageUrl: string = 'https://robinzon2019.github.io/shopping-cart-demo/login/login.html';
     private readonly registerPageUrl: string = 'https://robinzon2019.github.io/shopping-cart-demo/registration/register.html';
+    private readonly productListUrl: string = 'https://robinzon2019.github.io/shopping-cart-demo/shopping%20cart/index.html';
     private readonly shoppingCartUrl: string = 'https://robinzon2019.github.io/shopping-cart-demo/shopping%20cart/cart.html';
 
     constructor(page: Page) {
@@ -16,6 +17,10 @@ export class NavigateTo {
 
     async registerPage() {
         await this.page.goto(this.registerPageUrl);
+    }
+
+    async productListPage() {
+        await this.page.goto(this.productListUrl);
     }
 
     async shoppingCartPage() {
