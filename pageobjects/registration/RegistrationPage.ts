@@ -10,16 +10,6 @@ export class RegistrationPage {
     private readonly emailTextBox: Locator
     private daySelect: Locator
     private readonly picture: Locator
-
-    // Summary page fields
-    private nameLabel: Locator
-    private lastNameLabel: Locator
-    private ageLabel: Locator
-    private countryLabel: Locator
-    private genderLabel: Locator
-    private emailLabel: Locator
-    private dayLabel: Locator
-
     private readonly page: Page
 
     constructor(page: Page) {
@@ -34,15 +24,6 @@ export class RegistrationPage {
         this.emailTextBox = page.locator("input[id=email]");
         this.picture = page.locator("id=picture");
         this.daySelect = page.locator("//input[@id='monday']");
-
-        // Summary page fields
-        this.nameLabel = page.locator("//strong[contains(text(), 'Nombre')]/ancestor::p");
-        this.lastNameLabel = page.locator("//strong[contains(text(), 'Apellido')]/ancestor::p");
-        this.ageLabel = page.locator("//strong[contains(text(), 'Edad')]/ancestor::p");
-        this.countryLabel = page.locator("//strong[contains(text(), 'País')]/ancestor::p");
-        this.genderLabel = page.locator("//strong[contains(text(), 'Sexo')]/ancestor::p");
-        this.emailLabel = page.locator("//strong[contains(text(), 'Correo electrónico')]/ancestor::p");
-        this.dayLabel = page.locator("//strong[contains(text(), 'Días en los que trabaja:')]/ancestor::p");
     }
 
     async fillName(name: string) {
@@ -78,17 +59,6 @@ export class RegistrationPage {
         await this.picture.setInputFiles(picture)
     }
 
-    async setSummaryPageLocators(summaryPage: Page) {
-        // Summary page fields
-        this.nameLabel = summaryPage.locator("//strong[contains(text(), 'Nombre')]/ancestor::p");
-        this.lastNameLabel = summaryPage.locator("//strong[contains(text(), 'Apellido')]/ancestor::p");
-        this.ageLabel = summaryPage.locator("//strong[contains(text(), 'Edad')]/ancestor::p");
-        this.countryLabel = summaryPage.locator("//strong[contains(text(), 'País')]/ancestor::p");
-        this.genderLabel = summaryPage.locator("//strong[contains(text(), 'Sexo')]/ancestor::p");
-        this.emailLabel = summaryPage.locator("//strong[contains(text(), 'Correo electrónico')]/ancestor::p");
-        this.dayLabel = summaryPage.locator("//strong[contains(text(), 'Días en los que trabaja:')]/ancestor::p");
-    }
-
     async doRegistration(
         name: string, 
         lastName: string, 
@@ -100,7 +70,7 @@ export class RegistrationPage {
         dayToSelectOption: string,
         picture: string,
         expectedTitle: string, 
-        testInfo: TestInfo) 
+        testInfo: TestInfo): Promise<Page>
     {
         await this.nameTextBox.fill(name)
         await this.lastNameTextBox.fill(lastName)
@@ -123,19 +93,6 @@ export class RegistrationPage {
             ]
         )
 
-        await summaryPage.waitForLoadState()
-
-        await this.setSummaryPageLocators(summaryPage);
-        
-        await expect(summaryPage).toHaveTitle(expectedTitle)
-        
-        // Assert that the values ​​shown on the summary page are the same as those entered in the form.
-        expect(await this.nameLabel.textContent()).toContain(name)
-        expect(await this.lastNameLabel.textContent()).toContain(lastName)
-        expect(await this.ageLabel.textContent()).toContain(age)
-        expect(await this.countryLabel.textContent()).toContain(country)
-        expect(await this.genderLabel.textContent()).toContain(gender)
-        expect(await this.emailLabel.textContent()).toContain(email)
-        expect(await this.dayLabel.textContent()).toContain(dayToSelect)
+        return summaryPage; 
     }
 }

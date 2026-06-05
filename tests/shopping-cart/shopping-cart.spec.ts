@@ -1,9 +1,10 @@
 import { faker } from '@faker-js/faker';
 import {chromium, expect, test} from 'playwright/test';
+import { NavigateTo } from '../../pageobjects/navigate/NavigateTo';
 
 test('Buying new products', async ({page}) => {
-    const shoppingCartUrl = 'http://127.0.0.1:5500/';
-    await page.goto(shoppingCartUrl);
+    const navigateTo = new NavigateTo(page);
+    await navigateTo.shoppingCartPage();
 
     for (let i = 0; i <= 5; i++) {
         await page.locator(`//h5[contains(text(), 'Producto 1')]/ancestor::div[contains(@class, 'card-body')]//button`).click();
@@ -45,26 +46,3 @@ test('Buying new products', async ({page}) => {
 
     //await page.pause();
 })
-
-
-// test('cerrar pestaña existente', async () => {
-
-//     const browser = await chromium.connectOverCDP(
-//         'https://playwright.dev/docs/intro'
-//     );
-
-//     const context = browser.contexts()[0];
-
-//     const pages = context.pages();
-
-//     for (const page of pages) {
-
-//         if (page.url().includes('facebook')) {
-
-//             await page.close();
-
-//             break;
-//         }
-//     }
-
-// });
